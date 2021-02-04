@@ -1,46 +1,44 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody rb_player;
-    public float speed = 1500f;
+    private CharacterController controller;
+    private bool groundedPlayer;
+    private Vector3 playerVelocity;
+    private Rigidbody plyr;
+    public float speedForce = 5.0f;
+    private float jumpHeight = 2.0f;
+    private float gravityValue = -15.81f;
 
     // Start is called before the first frame update
     void Start()
     {
-        rb_player = GetComponent<Rigidbody>();
+        plyr = GetComponent<Rigidbody>();
+        controller = gameObject.AddComponent<CharacterController>();
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        // Move Up
-        if (Input.GetKey("w") || Input.GetKey("up"))
+        groundedPlayer = controller.isGrounded;
+        if (groundedPlayer && playerVelocity.y < 0)
         {
-            rb_player.AddForce(0, 0, speed * Time.deltaTime);
+            playerVelocity.y = 0f;
         }
-        // Move Down
-        if (Input.GetKey("s") || Input.GetKey("down"))
+        
+        Vector3 moves = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        controller.Move(moves * Time.deltaTime * speedForce);
+
+        if (Input.GetKeyDown(KeyCode.Space) && groundedPlayer)
         {
-            rb_player.AddForce(0, 0, -speed * Time.deltaTime);
+            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
         }
-        // Move Left
-        if (Input.GetKey("a") || Input.GetKey("left"))
+        playerVelocity.y += gravityValue * Time.deltaTime;
+        controller.Move(playerVelocity * Time.deltaTime);
+
+        if (transform.position.y <= -25.5)
         {
-            rb_player.AddForce(-speed * Time.deltaTime, 0, 0);
-        }
-        // Move Right
-        if (Input.GetKey("d") || Input.GetKey("right"))
-        {
-            rb_player.AddForce(speed * Time.deltaTime, 0, 0);
-        }
-        // jump
-        if (Input.GetKey("space"))
-        {
-            rb_player.AddForce(0, speed * Time.deltaTime, 0);
+            transform.position = new Vector3(0, 20, 0);
         }
     }
 }
