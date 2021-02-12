@@ -8,7 +8,7 @@ public class WinTrigger : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Finish"));
+        if (other.CompareTag("Player"))
         {
             plyr.GetComponent<Timer>().finish = true;
             timer.color = Color.green;
