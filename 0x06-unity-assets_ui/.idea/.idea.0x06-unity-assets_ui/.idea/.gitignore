@@ -1,0 +1,13 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/modules.xml
+/projectSettingsUpdater.xml
+/contentModel.xml
+/.idea.0x06-unity-assets_ui.iml
+# Datasource local storage ignored files
+/../../../../../../:\holbertonschool-unity\0x06-unity-assets_ui\.idea\.idea.0x06-unity-assets_ui\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
