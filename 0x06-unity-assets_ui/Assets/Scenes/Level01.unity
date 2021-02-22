@@ -11681,6 +11681,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4026917277284571268, guid: 7f102f9fc5331a440bf1a7f360fdb5d7,
+        type: 3}
+      propertyPath: m_Name
+      value: MenuBG
+      objectReference: {fileID: 0}
     - target: {fileID: 4026917277396357518, guid: 7f102f9fc5331a440bf1a7f360fdb5d7,
         type: 3}
       propertyPath: m_Pivot.x
