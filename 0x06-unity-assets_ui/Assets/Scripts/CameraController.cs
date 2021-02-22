@@ -3,6 +3,7 @@
 public class CameraController : MonoBehaviour
 {
     public Transform plyr;
+    public bool isInverted;
 
     private const float turn_speed = 150f;
     private const float vert_speed = 150f;
@@ -26,7 +27,10 @@ public class CameraController : MonoBehaviour
         Vector3 itfollow = plyr.position + _cameraOffset;
 
         rotation = Quaternion.identity;
-        rotation = Quaternion.AngleAxis(Input.GetAxis("Mouse Y") * vert_speed * Time.deltaTime, Vector3.right);
+        if (isInverted == false)
+            rotation = Quaternion.AngleAxis(Input.GetAxis("Mouse Y") * vert_speed * Time.deltaTime, Vector3.right);
+        else
+            rotation = Quaternion.AngleAxis(-Input.GetAxis("Mouse Y")* vert_speed * Time.deltaTime, Vector3.right);
 
         _cameraOffset = rotation * _cameraOffset;
         transform.position = Vector3.Slerp(transform.position, itfollow, smootSpeed);
