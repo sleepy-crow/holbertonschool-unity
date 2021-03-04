@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     private float jumpHeight = 2.0f;
     private float gravityValue = -15.81f;
     public bool canMove = true;
+    public float rotationsmoot = 0.7f;
+    float smootrotation;
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +36,8 @@ public class PlayerController : MonoBehaviour
             if (moves.magnitude >= 0.1f)
             {
                 float theAngle = Mathf.Atan2(moves.x, moves.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
-                transform.rotation = Quaternion.Euler(0f, theAngle, 0f);
+                float Smoot = Mathf.SmoothDampAngle(transform.eulerAngles.y, theAngle, ref smootrotation, rotationsmoot);
+                transform.rotation = Quaternion.Euler(0f, Smoot, 0f);
 
                 Vector3 dir = Quaternion.Euler(0f, theAngle, 0f) * Vector3.forward;
                 controller.Move(dir * Time.deltaTime * speedForce);
